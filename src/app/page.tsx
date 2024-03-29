@@ -6,7 +6,8 @@ const HomePage = () => {
     <div>
       <h1>Home Page</h1>
       <p>Test</p>
-      <Button variant="outlined">Outlined</Button>
+      <Button>Outlined</Button>
+      <Button>Outlined</Button>
     </div>
   );
 };
