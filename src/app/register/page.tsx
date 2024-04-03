@@ -13,26 +13,31 @@ import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { modifyPayload } from "@/utils/modifyPayload";
 
-// type Inputs = {
+type Inputs = {
+  password: string;
+  patient: {
+    name: string;
+    email: string;
+    contactNumber: string;
+    address: string;
+  };
+};
+
+// interface IPatient {
 //   name: string;
 //   email: string;
-//   password: string;
 //   contactNumber: string;
 //   address: string;
-// };
+// }
 
-interface IPatient {
-  name: string;
-  email: string;
-  contactNumber: string;
-  address: string;
-}
+// interface IPatientFormData {
+//   password: string;
+//   patient: IPatient;
+// }
 
-interface IPatientFormData {
-  password: string;
-  patient: IPatient;
-}
+// Both type and interface are working :)
 
 const RegisterPage = () => {
   const {
@@ -40,9 +45,13 @@ const RegisterPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IPatientFormData>();
+  } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<IPatientFormData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (values) => {
+    const data = modifyPayload(values);
+
+    console.log(data);
+  };
 
   return (
     <Container>
