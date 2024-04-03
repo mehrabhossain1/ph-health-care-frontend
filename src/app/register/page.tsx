@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -10,8 +12,38 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+// type Inputs = {
+//   name: string;
+//   email: string;
+//   password: string;
+//   contactNumber: string;
+//   address: string;
+// };
+
+interface IPatient {
+  name: string;
+  email: string;
+  contactNumber: string;
+  address: string;
+}
+
+interface IPatientFormData {
+  password: string;
+  patient: IPatient;
+}
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IPatientFormData>();
+
+  const onSubmit: SubmitHandler<IPatientFormData> = (data) => console.log(data);
+
   return (
     <Container>
       <Stack
@@ -48,7 +80,7 @@ const RegisterPage = () => {
           </Stack>
 
           <Box>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
                   <TextField
@@ -56,6 +88,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("patient.name")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -65,6 +98,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("patient.email")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -74,6 +108,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -83,6 +118,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("patient.contactNumber")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -92,6 +128,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("patient.address")}
                   />
                 </Grid>
               </Grid>
