@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Button,
@@ -10,8 +11,32 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { loginUser } from "@/services/actions/loginUser";
 
+export type TFormValues = {
+  email: string;
+  password: string;
+};
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TFormValues>();
+
+  const onSubmit: SubmitHandler<TFormValues> = async (values) => {
+    // console.log(values);
+
+    try {
+      const res = await loginUser(values);
+      console.log(res);
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <Container>
       <Stack
@@ -47,7 +72,7 @@ const LoginPage = () => {
             </Box>
           </Stack>
           <Box>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
                   <TextField
@@ -56,6 +81,7 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -65,6 +91,7 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
               </Grid>
