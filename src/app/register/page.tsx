@@ -15,6 +15,8 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { registerPatient } from "@/services/actions/registerPatient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   password: string;
@@ -41,6 +43,7 @@ type Inputs = {
 // Both type and interface are working :)
 
 const RegisterPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -54,6 +57,10 @@ const RegisterPage = () => {
     // console.log(data);
     try {
       const res = await registerPatient(data);
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        router.push("/login");
+      }
     } catch (err: any) {
       console.error(err.message);
     }
