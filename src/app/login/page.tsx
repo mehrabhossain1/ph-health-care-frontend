@@ -13,6 +13,7 @@ import assets from "@/assets";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { loginUser } from "@/services/actions/loginUser";
+import { storeUserInfo } from "@/services/auth.services";
 
 export type TFormValues = {
   email: string;
@@ -31,7 +32,9 @@ const LoginPage = () => {
 
     try {
       const res = await loginUser(values);
-      console.log(res);
+      if (res?.data?.accessToken) {
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+      }
     } catch (err: any) {
       console.error(err.message);
     }
