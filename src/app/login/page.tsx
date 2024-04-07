@@ -1,4 +1,7 @@
 "use client";
+import assets from "@/assets";
+import { loginUser } from "@/services/actions/loginUser";
+import { storeUserInfo } from "@/services/auth.services";
 import {
   Box,
   Button,
@@ -9,17 +12,18 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import assets from "@/assets";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { loginUser } from "@/services/actions/loginUser";
-import { storeUserInfo } from "@/services/auth.services";
+import { toast } from "sonner";
 
 export type TFormValues = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -33,7 +37,9 @@ const LoginPage = () => {
     try {
       const res = await loginUser(values);
       if (res?.data?.accessToken) {
+        toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/");
       }
     } catch (err: any) {
       console.error(err.message);

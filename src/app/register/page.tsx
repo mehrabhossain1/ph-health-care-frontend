@@ -17,6 +17,8 @@ import { modifyPayload } from "@/utils/modifyPayload";
 import { registerPatient } from "@/services/actions/registerPatient";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/services/actions/loginUser";
+import { storeUserInfo } from "@/services/auth.services";
 
 type Inputs = {
   password: string;
@@ -44,6 +46,7 @@ type Inputs = {
 
 const RegisterPage = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -59,7 +62,14 @@ const RegisterPage = () => {
       const res = await registerPatient(data);
       if (res?.data?.id) {
         toast.success(res?.message);
-        router.push("/login");
+        const result = await loginUser({
+          password: values.password,
+          email: values.patient.email,
+        });
+        if (result?.data?.accessToken) {
+          storeUserInfo({ accessToken: result?.data?.accessToken });
+          router.push("/");
+        }
       }
     } catch (err: any) {
       console.error(err.message);
