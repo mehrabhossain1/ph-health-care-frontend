@@ -1,5 +1,4 @@
 "use client";
-
 import assets from "@/assets";
 import { loginUser } from "@/services/actions/loginUser";
 import { storeUserInfo } from "@/services/auth.services";
@@ -28,7 +27,6 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<TFormValues>();
 
@@ -41,7 +39,6 @@ const LoginPage = () => {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
-        // changed the terminal
       }
     } catch (err: any) {
       console.error(err.message);
