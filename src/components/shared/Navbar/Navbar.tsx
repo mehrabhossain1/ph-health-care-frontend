@@ -1,5 +1,5 @@
 "use client";
-import AuthButton from "@/components/ui/AuthButton/AuthButton";
+
 import { Box, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Link from "next/link";
