@@ -40,6 +40,7 @@ const LoginPage = () => {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
+        // changed the terminal
       }
     } catch (err: any) {
       console.error(err.message);
