@@ -10,6 +10,7 @@ import { modifyPayload } from "@/utils/modifyPayload";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
@@ -66,6 +67,7 @@ const defaultValues = {
 
 const RegisterPage = () => {
   const router = useRouter();
+  const [error, setError] = useState();
 
   const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
@@ -83,6 +85,8 @@ const RegisterPage = () => {
           storeUserInfo({ accessToken: result?.data?.accessToken });
           router.push("/");
         }
+      } else {
+        setError(res.message);
       }
     } catch (err: any) {
       console.error(err.message);
@@ -123,6 +127,20 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           </Stack>
+
+          {error && (
+            <Box>
+              <Typography
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  padding: "2px",
+                }}
+              >
+                {error}
+              </Typography>
+            </Box>
+          )}
 
           <Box>
             <PHForm
