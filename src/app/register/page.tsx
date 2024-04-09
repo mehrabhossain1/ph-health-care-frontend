@@ -69,8 +69,8 @@ const RegisterPage = () => {
 
   const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
-
     // console.log(data);
+
     try {
       const res = await registerPatient(data);
       if (res?.data?.id) {
