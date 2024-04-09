@@ -1,6 +1,7 @@
 "use client";
 import assets from "@/assets";
 import PHForm from "@/components/Forms/PHForm";
+import PHInput from "@/components/Forms/PHInput";
 import { loginUser } from "@/services/actions/loginUser";
 import { storeUserInfo } from "@/services/auth.services";
 import {
@@ -15,7 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 const LoginPage = () => {
@@ -74,23 +75,19 @@ const LoginPage = () => {
             <PHForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("password")}
                   />
                 </Grid>
               </Grid>
