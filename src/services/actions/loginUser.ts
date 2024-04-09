@@ -1,8 +1,8 @@
 "use server";
 
-import { TFormValues } from "@/app/login/page";
+import { FieldValues } from "react-hook-form";
 
-export const loginUser = async (values: TFormValues) => {
+export const loginUser = async (values: FieldValues) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
     method: "POST",
     headers: {
