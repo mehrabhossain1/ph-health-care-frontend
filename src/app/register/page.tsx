@@ -1,26 +1,20 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Image from "next/image";
 import assets from "@/assets";
-import Link from "next/link";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { modifyPayload } from "@/utils/modifyPayload";
-import { registerPatient } from "@/services/actions/registerPatient";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { loginUser } from "@/services/actions/loginUser";
-import { storeUserInfo } from "@/services/auth.services";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
+import { loginUser } from "@/services/actions/loginUser";
+import { registerPatient } from "@/services/actions/registerPatient";
+import { storeUserInfo } from "@/services/auth.services";
+import { modifyPayload } from "@/utils/modifyPayload";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 type Inputs = {
   password: string;
@@ -45,6 +39,30 @@ type Inputs = {
 // }
 
 // Both type and interface are working :)
+
+export const patientValidationSchema = z.object({
+  name: z.string().min(1, "Please enter your name"),
+  email: z.string().email("Please enter a valid email"),
+  contactNumber: z
+    .string()
+    .regex(/^\d{11}$/, "Please enter a valid contact number"),
+  address: z.string().min(1, "Please enter your address"),
+});
+
+export const validationSchema = z.object({
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  patient: patientValidationSchema,
+});
+
+const defaultValues = {
+  password: "",
+  patient: {
+    name: "",
+    email: "",
+    contactNumber: "",
+    address: "",
+  },
+};
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -107,15 +125,14 @@ const RegisterPage = () => {
           </Stack>
 
           <Box>
-            <PHForm onSubmit={handleRegister}>
+            <PHForm
+              onSubmit={handleRegister}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={defaultValues}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
-                  <PHInput
-                    label="Name"
-                    fullWidth={true}
-                    name="patient.name"
-                    required
-                  />
+                  <PHInput label="Name" fullWidth={true} name="patient.name" />
                 </Grid>
                 <Grid item md={6}>
                   <PHInput
@@ -123,7 +140,6 @@ const RegisterPage = () => {
                     type="email"
                     fullWidth={true}
                     name="patient.email"
-                    required
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -132,7 +148,6 @@ const RegisterPage = () => {
                     type="password"
                     fullWidth={true}
                     name="password"
-                    required
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -141,7 +156,6 @@ const RegisterPage = () => {
                     type="tel"
                     fullWidth={true}
                     name="patient.contactNumber"
-                    required
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -149,7 +163,6 @@ const RegisterPage = () => {
                     label="Address"
                     fullWidth={true}
                     name="patient.address"
-                    required
                   />
                 </Grid>
               </Grid>
