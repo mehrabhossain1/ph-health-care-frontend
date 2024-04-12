@@ -1,7 +1,9 @@
+import assets from "@/assets";
+import MailIcon from "@mui/icons-material/Mail";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
 import {
   Box,
   Divider,
-  Toolbar,
   List,
   ListItem,
   ListItemButton,
@@ -10,10 +12,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Image from "next/image";
-import assets from "@/assets";
 import Link from "next/link";
 
 const SideBar = () => {
