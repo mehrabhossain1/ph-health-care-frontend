@@ -16,9 +16,8 @@ type TProps = {
 
 const SidebarItems = ({ item }: TProps) => {
   const linkPath = `/dashboard/${item.path}`;
-
   const pathname = usePathname();
-  console.log(pathname);
+  //   console.log(pathname);
 
   return (
     <Link href={linkPath}>
