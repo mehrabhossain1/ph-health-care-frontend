@@ -18,6 +18,8 @@ instance.interceptors.request.use(
       config.headers.Authorization = accessToken;
     }
 
+    // comment
+
     return config;
   },
   function (error) {
@@ -47,6 +49,7 @@ instance.interceptors.response.use(
       message: error?.response?.data?.message || "Something went wrong",
       errorMessages: error?.response?.data?.message,
     };
+    // comment
     // return Promise.reject(error);
     return responseObject;
   }
