@@ -1,8 +1,15 @@
+import PHModal from "@/components/shared/PHModal/PHModal";
+import { Box, Button, Stack, TextField } from "@mui/material";
+
 const SpecialtiesPage = () => {
   return (
-    <div>
-      <h1>Specialties Page</h1>
-    </div>
+    <Box>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Button>Create Specialty</Button>
+        <PHModal />
+        <TextField placeholder="Search Specialist" />
+      </Stack>
+    </Box>
   );
 };
 
