@@ -28,9 +28,9 @@ type TModalProps = {
 };
 
 export default function PHModal({
-  open,
+  open = false,
   setOpen,
-  title,
+  title = "",
   children,
   sx,
 }: TModalProps) {
@@ -62,11 +62,6 @@ export default function PHModal({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>{children}</DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
   );
