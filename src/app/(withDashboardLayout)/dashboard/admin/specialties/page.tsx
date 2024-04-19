@@ -12,6 +12,7 @@ const SpecialtiesPage = () => {
         <Button onClick={() => setIsModalOpen(true)}>Create Specialty</Button>
 
         {/* comment */}
+        {/* commetn */}
         <SpecialistModal open={isModalOpen} setOpen={setIsModalOpen} />
         <TextField placeholder="Search Specialist" />
       </Stack>
