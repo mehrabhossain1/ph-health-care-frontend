@@ -33,7 +33,10 @@ export default function PHFileUploader({ name, label, sx }: TProps) {
               {...field}
               type={name}
               value={value?.fileName}
-              onChange={(e) => console.log(e.target)}
+              onChange={(e) =>
+                onChange((e?.target as HTMLInputElement).files?.[0])
+              }
+              style={{ display: "none" }}
             />
           </Button>
         );
