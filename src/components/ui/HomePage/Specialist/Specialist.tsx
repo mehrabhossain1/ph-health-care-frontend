@@ -35,7 +35,7 @@ const Specialist = async () => {
 
         {/* specialties */}
         <Stack direction="row" spacing={4} mt={5}>
-          {specialties.map((specialty: Specialty) => (
+          {specialties.slice(0, 6).map((specialty: Specialty) => (
             <Box
               key={specialty.id}
               sx={{
