@@ -12,7 +12,16 @@ const SpecialtiesPage = () => {
   // console.log(data);
 
   const columns: GridColDef[] = [
-    { field: "title", headerName: "Title", width: 70 },
+    { field: "title", headerName: "Title", width: 100 },
+
+    {
+      field: "icon",
+      headerName: "Icon",
+      width: 100,
+      renderCell: ({ row }) => {
+        return console.log(row);
+      },
+    },
   ];
 
   return (
@@ -25,17 +34,7 @@ const SpecialtiesPage = () => {
 
       {!isLoading ? (
         <Box>
-          <DataGrid
-            rows={data}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-          />
+          <DataGrid rows={data} columns={columns} />
         </Box>
       ) : (
         <h1>Loading....</h1>
